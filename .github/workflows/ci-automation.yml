@@ -40,6 +40,20 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: app-debug.apk
+      - name: Check if file exists
+        run: |
+          if [ ! -f ../app-debug.apk ]; then
+            echo "File app-debug.apk not found"
+            exit 1
+          fi
+          echo "File app-debug.apk found"
+      - name: Check if file exists 2
+        run: |
+          if [ ! -f app-debug.apk ]; then
+            echo "File app-debug.apk not found2"
+            exit 1
+          fi
+          echo "File app-debug.apk found2"
       - name: Setup SSH
         uses: MrSquaare/ssh-setup-action@v1
         with:
