@@ -1,0 +1,56 @@
+name: Build and Test Android App
+on:
+  push:
+env:
+  ANDROID_SDK_ROOT: /usr/local/android-sdk-linux
+  JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Set up Android SDK
+        uses: actions/setup-android@v1
+        with:
+          android-version: 28
+      - name: Build APK
+        run: ./gradlew assembleDebug
+      - name: Store APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Download APK
+        uses: actions/download-artifact@v2
+        with:
+          name: app-debug.apk
+      - name: Clone repository with Serenity and Appium tests
+        run: git clone git@github.com:99minutos/Automation_App_Veloz.git
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Set up Android SDK
+        uses: actions/setup-android@v1
+        with:
+          android-version: 28
+      - name: Set up Appium
+        run: |
+          npm install -g appium
+      - name: Run Appium tests
+        run: |
+          appium &
+          adb devices
+          cd Automation_App_Veloz
+          mv ../app-debug.apk Automation_App_Veloz/src/test/resources/app.apk
+          ./gradlew clean test
