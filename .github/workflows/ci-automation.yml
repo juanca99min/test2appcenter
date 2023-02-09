@@ -2,7 +2,7 @@ name: Build and Test Android App
 on:
   push:
 env:
-  ANDROID_API: 29
+  ANDROID_API: 28
   ANDROID_EMULATOR_NAME: Nexus_5X_API_29
 jobs:
   build:
@@ -70,9 +70,16 @@ jobs:
         with:
           java-version: 1.8
       - name: Install Android SDK
-        uses: actions/setup-android@v2
-        with:
-          api-level: ${{ env.ANDROID_API }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip
+          sudo apt-get install -y openjdk-8-jdk
+          sudo apt-get install -y libc6:i386 libstdc++6:i386
+          wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -O android-sdk.zip
+          unzip -q android-sdk.zip -d $HOME/android-sdk-linux
+          export ANDROID_HOME=$HOME/android-sdk-linux
+          export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+          echo y | sdkmanager "platform-tools" "platforms;android-28" "build-tools;28.0.3"
 
       - name: Create Android Emulator
         run: |
