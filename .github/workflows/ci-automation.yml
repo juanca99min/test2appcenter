@@ -80,6 +80,7 @@ jobs:
           JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
       - name: Create Android Emulator
         run: |
+          source $GITHUB_ENV
           echo no | android create avd --force -n ${{ env.ANDROID_EMULATOR_NAME }} -k "system-images;android-${{ env.ANDROID_API }};google_apis;x86"
 
       - name: Start Emulator
