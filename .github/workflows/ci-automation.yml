@@ -85,7 +85,7 @@ jobs:
           source $GITHUB_ENV
           echo no | $ANDROID_HOME/tools/bin/android create avd --force -n Nexus_5X_API_29 -k "system-images;android-28;google_apis;x86"
 
-    - name: Start Emulator
+      - name: Start Emulator
         run: |
           emulator -avd ${{ env.ANDROID_EMULATOR_NAME }} -no-audio -no-window &
 
