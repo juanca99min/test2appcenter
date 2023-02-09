@@ -30,9 +30,21 @@ jobs:
         with:
           name: app-debug.apk
           path: app/build/outputs/apk/debug/app-debug.apk
+  avd:
+    runs-on: macos-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: run tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          avd-name: "R9PT9117J3D"
+          script: ./gradlew connectedCheck
   test:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build,avd]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -83,6 +95,5 @@ jobs:
       - name: Run Appium tests
         run: |
           appium &
-          adb devices
           cd Automation_App_Veloz
           ./gradlew clean test
