@@ -76,14 +76,16 @@ jobs:
           unzip sdk-tools-linux-4333796.zip -d android-sdk
           echo 'export ANDROID_HOME=$PWD/android-sdk' >> $GITHUB_ENV
           echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools' >> $GITHUB_ENV
+          export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH
+
         env:
           JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
       - name: Create Android Emulator
         run: |
           source $GITHUB_ENV
-          echo no | android create avd --force -n ${{ env.ANDROID_EMULATOR_NAME }} -k "system-images;android-${{ env.ANDROID_API }};google_apis;x86"
+          echo no | $ANDROID_HOME/tools/bin/android create avd --force -n Nexus_5X_API_29 -k "system-images;android-28;google_apis;x86"
 
-      - name: Start Emulator
+    - name: Start Emulator
         run: |
           emulator -avd ${{ env.ANDROID_EMULATOR_NAME }} -no-audio -no-window &
 
