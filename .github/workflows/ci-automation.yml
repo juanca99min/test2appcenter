@@ -44,6 +44,12 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
           cache: gradle
+      - name: Setup SSH
+        uses: MrSquaare/ssh-setup-action@v1
+        with:
+          host: github.com
+          private-key: ${{ secrets.PAT_ACTIONS }}
+
       - name: Clone repository
         run: git clone --branch test-android-team git@github.com:99minutos/Automation_App_Veloz.git
       - name: Copy APK
@@ -79,11 +85,6 @@ jobs:
             exit 1
           fi
           echo "File app-debug.apk found2"
-      - name: Setup SSH
-        uses: MrSquaare/ssh-setup-action@v1
-        with:
-          host: github.com
-          private-key: ${{ secrets.PAT_ACTIONS }}
 
       - name: Install Android SDK
         run: |
