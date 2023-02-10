@@ -94,7 +94,7 @@ jobs:
         run: |
           appium &
           cd Automation_App_Veloz
-          ./gradlew clean tests
+          ./gradlew clean test
 #      - name: Install Android SDK
 #        run: |
 #          sudo apt-get update && sudo apt-get install unzip
