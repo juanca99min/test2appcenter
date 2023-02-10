@@ -1,9 +1,6 @@
 name: Build and Test Android App
 on:
   push:
-env:
-  JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
-  ANDROID_HOME: /usr/local/lib/android/sdk
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -65,7 +62,7 @@ jobs:
             exit 1
           fi
           echo "File app.apk found2"
-      - name: run tests
+      - name: run emulator
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: 29
