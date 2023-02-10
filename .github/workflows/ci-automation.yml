@@ -52,6 +52,10 @@ jobs:
 
       - name: Clone repository
         run: git clone --branch test-android-team git@github.com:99minutos/Automation_App_Veloz.git
+      - name: Download APK
+        uses: actions/download-artifact@v2
+        with:
+          name: app-debug.apk
       - name: Copy APK
         run: cp app-debug.apk Automation_App_Veloz/src/test/resources/app.apk
       - name: Check if file exists 2
