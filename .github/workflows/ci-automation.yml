@@ -87,6 +87,7 @@ jobs:
       - name: Run Appium tests
         run: |
           appium &
+          pwd &
           cd Automation_App_Veloz
           ./gradlew clean test
 #      - name: Install Android SDK
