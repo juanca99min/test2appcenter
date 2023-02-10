@@ -87,7 +87,14 @@ jobs:
           echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools' >> $GITHUB_ENV
         env:
           JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
-
+      - name: Set up Appium
+        run: |
+          npm install -g appium
+      - name: Run Appium tests
+        run: |
+          appium &
+          cd Automation_App_Veloz
+          ./gradlew clean tests
 #      - name: Install Android SDK
 #        run: |
 #          sudo apt-get update && sudo apt-get install unzip
