@@ -36,10 +36,6 @@ jobs:
   test:
     runs-on: macos-latest
     needs: [build]
-    strategy:
-      matrix:
-        api-level: [ 29 ]
-        target: [ default ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -88,8 +84,8 @@ jobs:
       - name: run tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: ${{ matrix.api-level }}
-          target: ${{ matrix.target }}
+          api-level: 29
+          target: default
           arch: x86_64
           profile: Nexus 6
           script: ./gradlew connectedCheck
