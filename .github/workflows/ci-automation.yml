@@ -3,7 +3,7 @@ on:
   push:
 env:
   JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
-  ANDROID_HOME: /opt/android-sdk
+  ANDROID_HOME: /usr/local/lib/android/sdk
 jobs:
   build:
     runs-on: ubuntu-latest
