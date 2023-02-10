@@ -71,7 +71,6 @@ jobs:
           java-version: 1.8
       - name: Install Android SDK
         run: |
-          mkdir $ANDROID_HOME
           curl https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip -o sdk-tools.zip
           unzip sdk-tools.zip -d $ANDROID_HOME
           rm sdk-tools.zip
