@@ -72,15 +72,15 @@ jobs:
           target: default
           arch: x86_64
           script: ./gradlew connectedCheck
-#      - name: Install Android SDK
-#        run: |
-#          sudo apt-get update && sudo apt-get install unzip
-#          wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
-#          unzip sdk-tools-linux-4333796.zip -d android-sdk
-#          echo 'export ANDROID_HOME=$PWD/android-sdk' >> $GITHUB_ENV
-#          echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools' >> $GITHUB_ENV
-#        env:
-#          JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
+      - name: Install Android SDK
+        run: |
+          sudo apt-get update && sudo apt-get install unzip
+          wget https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip
+          unzip sdk-tools-linux-4333796.zip -d android-sdk
+          echo 'export ANDROID_HOME=$PWD/android-sdk' >> $GITHUB_ENV
+          echo 'export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools' >> $GITHUB_ENV
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-8-openjdk-amd64
       - name: Set up Appium
         run: |
           npm install -g appium
